@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Calendar, Package, BarChart3, Users, DollarSign, TrendingUp, MapPin, Star, Clock, Sparkles, GraduationCap, X, Search, Wrench, Shield, AlertTriangle, Info, Filter, User, LogOut, Settings, Plus, Eye, EyeOff, Building2, CreditCard, FileText, Link } from 'lucide-react';
-// import ICAL from 'ical.js';import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
-// import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';import 'react-big-calendar/lib/css/react-big-calendar.css';
-// import moment from 'moment';
-// const localizer = momentLocalizer(moment);
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+const localizer = momentLocalizer(moment);
 const PropertyHostPro = () => {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
