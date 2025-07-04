@@ -2513,7 +2513,7 @@ const PropertyHostPro = () => {
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 <div className="flex items-center">
                                   <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                                  {property.rating.toFixed(1)}
+                                  {typeof property.rating === 'number' ? property.rating.toFixed(1) : property.rating}
                                 </div>
                               </td>
                             </tr>
