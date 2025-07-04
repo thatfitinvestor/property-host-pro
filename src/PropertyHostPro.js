@@ -591,19 +591,25 @@ const PropertyHostPro = () => {
   // iCal parsing and calendar integration functions
   const fetchICalData = async (url) => {
     try {
+      console.log('Fetching iCal data from URL:', url);
       let fetchUrl = url;
       if (url.includes('airbnb.com') || url.includes('vrbo.com')) {
         fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+        console.log('Using CORS proxy URL:', fetchUrl);
       }
       
       const response = await fetch(fetchUrl);
+      console.log('Fetch response status:', response.status, response.statusText);
       
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       
       const icalData = await response.text();
+      console.log('iCal data length:', icalData.length, 'characters');
+      console.log('iCal data preview:', icalData.substring(0, 200));
       const parsedData = ICAL.parse(icalData);
+      console.log('Successfully parsed iCal data');
       return parsedData;
     } catch (error) {
       console.error('Error fetching iCal data from', url, ':', error);
@@ -613,13 +619,16 @@ const PropertyHostPro = () => {
 
   const parseBookingEvents = (icalData, propertyName, source) => {
     if (!icalData) {
+      console.log(`No iCal data provided for ${propertyName} from ${source}`);
       return [];
     }
     
     const events = [];
     try {
+      console.log(`Parsing iCal data for ${propertyName} from ${source}...`);
       const comp = new ICAL.Component(icalData);
       const vevents = comp.getAllSubcomponents('vevent');
+      console.log(`Found ${vevents.length} events in iCal data`);
       
       vevents.forEach((vevent, index) => {
         const event = new ICAL.Event(vevent);
@@ -646,6 +655,8 @@ const PropertyHostPro = () => {
         estimatedNightlyRate *= (propertyMultipliers[propertyName] || 1.0);
         const estimatedRevenue = nights * estimatedNightlyRate;
         
+        console.log(`Event ${index + 1}: ${summary} | ${startDate.toDateString()} - ${endDate.toDateString()} | ${nights} nights | $${estimatedRevenue}`);
+        
         const calendarEvent = {
           id: `${propertyName}-${source}-${index}`,
           title: `${propertyName} - ${source.toUpperCase()}`,
@@ -662,8 +673,10 @@ const PropertyHostPro = () => {
         
         events.push(calendarEvent);
       });
+      
+      console.log(`Successfully parsed ${events.length} events for ${propertyName} from ${source}`);
     } catch (error) {
-      console.error('Error parsing iCal events for', propertyName, ':', error);
+      console.error(`Error parsing iCal events for ${propertyName} from ${source}:`, error);
     }
     
     return events;
@@ -719,12 +732,14 @@ const PropertyHostPro = () => {
         });
       }
       
+      console.log('Updating calendar events and properties...');
       setCalendarEvents(allEvents);
       setUserProperties(updatedProperties);
       
       const updatedUser = { ...currentUser, properties: updatedProperties };
       setCurrentUser(updatedUser);
       localStorage.setItem('propertyHostProUser', JSON.stringify(updatedUser));
+      console.log('Calendar data loading completed successfully. Total events:', allEvents.length);
       
     } catch (error) {
       console.error('Calendar data loading failed:', error);
