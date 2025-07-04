@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Calendar, Package, BarChart3, Users, DollarSign, TrendingUp, MapPin, Star, Clock, Sparkles, GraduationCap, X, Search, Wrench, Shield, AlertTriangle, Info, Filter, User, LogOut, Settings, Plus, Eye, EyeOff, Building2, CreditCard, FileText, Link } from 'lucide-react';
-// import ICAL from 'ical.js';import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
-// import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';import 'react-big-calendar/lib/css/react-big-calendar.css';
-// import moment from 'moment';
-// const localizer = momentLocalizer(moment);
+import ICAL from 'ical.js';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+const localizer = momentLocalizer(moment);
 const PropertyHostPro = () => {
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,7 +31,10 @@ const PropertyHostPro = () => {
     bathrooms: 1,
     maxGuests: 2,
     airbnbId: '',
-    vrboId: ''
+    vrboId: '',
+    airbnbCalUrl: '',
+    vrboCalUrl: '',
+    personalCalUrl: ''
   });
 
   // Investment Discovery state (from your original code)
@@ -82,9 +86,9 @@ const PropertyHostPro = () => {
           maxGuests: 6,
           airbnbId: 'swangalow_airbnb',
           vrboId: 'swangalow_vrbo',
-          airbnbCalUrl: process.env.REACT_APP_SWANGALOW_AIRBNB_CAL,
-          vrboCalUrl: process.env.REACT_APP_SWANGALOW_VRBO_CAL,
-          personalCalUrl: process.env.REACT_APP_SWANGALOW_PERSONAL_CAL,
+          airbnbCalUrl: 'https://www.airbnb.com/calendar/ical/686913637406970184.ics?s=f1c8f37e3482975ba253f009d48def86',
+          vrboCalUrl: 'http://www.vrbo.com/icalendar/5980bf44e3194bd6ba74af8a434c2f20.ics?nonTentative',
+          personalCalUrl: 'https://bluluxuryrentals.com/.netlify/functions/exportCalendar?property=swangalow',
           revenue: 0,
           expenses: 0,
           bookings: 0,
@@ -102,9 +106,9 @@ const PropertyHostPro = () => {
           maxGuests: 4,
           airbnbId: 'martini_airbnb',
           vrboId: 'martini_vrbo',
-          airbnbCalUrl: process.env.REACT_APP_BLUE_MARTINI_AIRBNB_CAL,
-          vrboCalUrl: process.env.REACT_APP_BLUE_MARTINI_VRBO_CAL,
-          personalCalUrl: process.env.REACT_APP_BLUE_MARTINI_PERSONAL_CAL,
+          airbnbCalUrl: 'https://www.airbnb.com/calendar/ical/975416879038628197.ics?s=689cee56b00fda0c35804028d61c0fce',
+          vrboCalUrl: 'http://www.vrbo.com/icalendar/47ccbd94e0884a5cb83b6ac18b32b37e.ics?nonTentative',
+          personalCalUrl: 'https://bluluxuryrentals.com/.netlify/functions/exportCalendar?property=blue-martini',
           revenue: 0,
           expenses: 0,
           bookings: 0,
@@ -122,9 +126,9 @@ const PropertyHostPro = () => {
           maxGuests: 8,
           airbnbId: 'bluebeach_airbnb',
           vrboId: 'bluebeach_vrbo',
-          airbnbCalUrl: process.env.REACT_APP_BLUE_BEACH_AIRBNB_CAL,
-          vrboCalUrl: process.env.REACT_APP_BLUE_BEACH_VRBO_CAL,
-          personalCalUrl: process.env.REACT_APP_BLUE_BEACH_PERSONAL_CAL,
+          airbnbCalUrl: 'https://www.airbnb.com/calendar/ical/51422847.ics?s=45f974f225629b1dab6a8355f8d04e01',
+          vrboCalUrl: 'http://www.vrbo.com/icalendar/05bc1fba331647d8a878346e24c40e12.ics?nonTentative',
+          personalCalUrl: 'https://bluluxuryrentals.com/.netlify/functions/exportCalendar?property=blue-beach',
           revenue: 0,
           expenses: 0,
           bookings: 0,
@@ -142,9 +146,9 @@ const PropertyHostPro = () => {
           maxGuests: 6,
           airbnbId: 'capeheaven_airbnb',
           vrboId: 'capeheaven_vrbo',
-          airbnbCalUrl: process.env.REACT_APP_CAPE_HEAVEN_AIRBNB_CAL,
-          vrboCalUrl: process.env.REACT_APP_CAPE_HEAVEN_VRBO_CAL,
-          personalCalUrl: process.env.REACT_APP_CAPE_HEAVEN_PERSONAL_CAL,
+          airbnbCalUrl: 'https://www.airbnb.com/calendar/ical/1321183726106783530.ics?s=9caf3dbe673852256f7d403c1b90dc7c',
+          vrboCalUrl: 'http://www.vrbo.com/icalendar/1c1f2c8dd51a48a49d26a9a7e398dc63.ics?nonTentative',
+          personalCalUrl: 'https://bluluxuryrentals.com/.netlify/functions/exportCalendar?property=cape-heaven',
           revenue: 0,
           expenses: 0,
           bookings: 0,
@@ -162,9 +166,9 @@ const PropertyHostPro = () => {
           maxGuests: 4,
           airbnbId: 'bluelagoon_airbnb',
           vrboId: 'bluelagoon_vrbo',
-          airbnbCalUrl: process.env.REACT_APP_BLUE_LAGOON_AIRBNB_CAL,
-          vrboCalUrl: process.env.REACT_APP_BLUE_LAGOON_VRBO_CAL,
-          personalCalUrl: process.env.REACT_APP_BLUE_LAGOON_PERSONAL_CAL,
+          airbnbCalUrl: 'https://www.airbnb.com/calendar/ical/857432740439975225.ics?s=e91aec656517d7eccf2c1c1a6d8cde54',
+          vrboCalUrl: 'http://www.vrbo.com/icalendar/3a57d463b7e5426ab307a8a7b3c1f8a4.ics?nonTentative',
+          personalCalUrl: 'https://bluluxuryrentals.com/.netlify/functions/exportCalendar?property=blue-lagoon',
           revenue: 0,
           expenses: 0,
           bookings: 0,
@@ -587,27 +591,44 @@ const PropertyHostPro = () => {
   // iCal parsing and calendar integration functions
   const fetchICalData = async (url) => {
     try {
+      console.log('Fetching iCal data from URL:', url);
       let fetchUrl = url;
       if (url.includes('airbnb.com') || url.includes('vrbo.com')) {
         fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+        console.log('Using CORS proxy URL:', fetchUrl);
       }
       
       const response = await fetch(fetchUrl);
+      console.log('Fetch response status:', response.status, response.statusText);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
       const icalData = await response.text();
-      return ICAL.parse(icalData);
+      console.log('iCal data length:', icalData.length, 'characters');
+      console.log('iCal data preview:', icalData.substring(0, 200));
+      const parsedData = ICAL.parse(icalData);
+      console.log('Successfully parsed iCal data');
+      return parsedData;
     } catch (error) {
-      console.error('Error fetching iCal data:', error);
+      console.error('Error fetching iCal data from', url, ':', error);
       return null;
     }
   };
 
   const parseBookingEvents = (icalData, propertyName, source) => {
-    if (!icalData) return [];
+    if (!icalData) {
+      console.log(`No iCal data provided for ${propertyName} from ${source}`);
+      return [];
+    }
     
     const events = [];
     try {
+      console.log(`Parsing iCal data for ${propertyName} from ${source}...`);
       const comp = new ICAL.Component(icalData);
       const vevents = comp.getAllSubcomponents('vevent');
+      console.log(`Found ${vevents.length} events in iCal data`);
       
       vevents.forEach((vevent, index) => {
         const event = new ICAL.Event(vevent);
@@ -634,7 +655,9 @@ const PropertyHostPro = () => {
         estimatedNightlyRate *= (propertyMultipliers[propertyName] || 1.0);
         const estimatedRevenue = nights * estimatedNightlyRate;
         
-        events.push({
+        console.log(`Event ${index + 1}: ${summary} | ${startDate.toDateString()} - ${endDate.toDateString()} | ${nights} nights | $${estimatedRevenue}`);
+        
+        const calendarEvent = {
           id: `${propertyName}-${source}-${index}`,
           title: `${propertyName} - ${source.toUpperCase()}`,
           start: startDate,
@@ -646,10 +669,14 @@ const PropertyHostPro = () => {
             estimatedRevenue: estimatedRevenue,
             summary: summary
           }
-        });
+        };
+        
+        events.push(calendarEvent);
       });
+      
+      console.log(`Successfully parsed ${events.length} events for ${propertyName} from ${source}`);
     } catch (error) {
-      console.error('Error parsing iCal events:', error);
+      console.error(`Error parsing iCal events for ${propertyName} from ${source}:`, error);
     }
     
     return events;
@@ -705,14 +732,17 @@ const PropertyHostPro = () => {
         });
       }
       
+      console.log('Updating calendar events and properties...');
       setCalendarEvents(allEvents);
       setUserProperties(updatedProperties);
       
       const updatedUser = { ...currentUser, properties: updatedProperties };
       setCurrentUser(updatedUser);
       localStorage.setItem('propertyHostProUser', JSON.stringify(updatedUser));
+      console.log('Calendar data loading completed successfully. Total events:', allEvents.length);
       
     } catch (error) {
+      console.error('Calendar data loading failed:', error);
       setCalendarError('Failed to load calendar data: ' + error.message);
     } finally {
       setIsLoadingCalendar(false);
@@ -1143,7 +1173,10 @@ const PropertyHostPro = () => {
       bathrooms: 1,
       maxGuests: 2,
       airbnbId: '',
-      vrboId: ''
+      vrboId: '',
+      airbnbCalUrl: '',
+      vrboCalUrl: '',
+      personalCalUrl: ''
     });
     setShowAddProperty(false);
     setError('');
@@ -1628,6 +1661,50 @@ const PropertyHostPro = () => {
                               onChange={(e) => setNewProperty({...newProperty, maxGuests: parseInt(e.target.value)})}
                               className="w-full p-3 border border-gray-300 rounded-lg"
                             />
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div className="border-t pt-4">
+                            <h5 className="text-sm font-medium text-gray-700 mb-3">Calendar Integration URLs</h5>
+                            <div className="space-y-3">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  Airbnb Calendar URL
+                                </label>
+                                <input
+                                  type="url"
+                                  value={newProperty.airbnbCalUrl}
+                                  onChange={(e) => setNewProperty({...newProperty, airbnbCalUrl: e.target.value})}
+                                  placeholder="https://www.airbnb.com/calendar/ical/..."
+                                  className="w-full p-3 border border-gray-300 rounded-lg text-sm"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  VRBO Calendar URL
+                                </label>
+                                <input
+                                  type="url"
+                                  value={newProperty.vrboCalUrl}
+                                  onChange={(e) => setNewProperty({...newProperty, vrboCalUrl: e.target.value})}
+                                  placeholder="https://www.vrbo.com/calendar/ical/..."
+                                  className="w-full p-3 border border-gray-300 rounded-lg text-sm"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  Personal Calendar URL (Optional)
+                                </label>
+                                <input
+                                  type="url"
+                                  value={newProperty.personalCalUrl}
+                                  onChange={(e) => setNewProperty({...newProperty, personalCalUrl: e.target.value})}
+                                  placeholder="https://calendar.google.com/calendar/ical/..."
+                                  className="w-full p-3 border border-gray-300 rounded-lg text-sm"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
 
@@ -2246,7 +2323,7 @@ const PropertyHostPro = () => {
                   </div>
                   <div className="flex items-center">
                     <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
-                    <span className="text-sm">Personal Website</span>
+                    <span className="text-sm">Blu Luxury Rentals</span>
                   </div>
                 </div>
               </div>
@@ -2358,10 +2435,174 @@ const PropertyHostPro = () => {
                 <BarChart3 className="w-5 h-5 mr-2 text-blue-600" />
                 Financial Reports
               </h3>
-              <div className="text-center py-12 text-gray-500">
-                <BarChart3 className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                <h4 className="text-lg font-medium mb-2">Financial Reports Coming Soon</h4>
-                <p>Comprehensive financial analytics and reporting for your portfolio.</p>
+              <div className="space-y-6">
+                {/* Portfolio Overview */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-blue-600">Total Revenue</p>
+                        <p className="text-2xl font-bold text-blue-900">${totalRevenue.toLocaleString()}</p>
+                      </div>
+                      <DollarSign className="w-8 h-8 text-blue-600" />
+                    </div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-green-600">Net Profit</p>
+                        <p className="text-2xl font-bold text-green-900">${(totalRevenue - totalExpenses).toLocaleString()}</p>
+                      </div>
+                      <TrendingUp className="w-8 h-8 text-green-600" />
+                    </div>
+                  </div>
+                  <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-purple-600">Total Bookings</p>
+                        <p className="text-2xl font-bold text-purple-900">{totalBookings}</p>
+                      </div>
+                      <Calendar className="w-8 h-8 text-purple-600" />
+                    </div>
+                  </div>
+                  <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-orange-600">Properties</p>
+                        <p className="text-2xl font-bold text-orange-900">{userProperties.length}</p>
+                      </div>
+                      <Building2 className="w-8 h-8 text-orange-600" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Property Performance Table */}
+                <div className="bg-white border rounded-lg overflow-hidden">
+                  <div className="px-6 py-4 border-b bg-gray-50">
+                    <h4 className="text-lg font-semibold">Property Performance</h4>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expenses</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Net Profit</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookings</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Occupancy</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg Rating</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {userProperties.map((property, index) => {
+                          const netProfit = property.revenue - property.expenses;
+                          const occupancyRate = property.bookings > 0 ? Math.min(100, (property.bookings * 3.5 / 30) * 100) : 0;
+                          return (
+                            <tr key={property.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="flex items-center">
+                                  <div>
+                                    <div className="text-sm font-medium text-gray-900">{property.name}</div>
+                                    <div className="text-sm text-gray-500">{property.address}</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${property.revenue.toLocaleString()}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ${property.expenses.toLocaleString()}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <span className={`font-medium ${netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                  ${netProfit.toLocaleString()}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {property.bookings}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {occupancyRate.toFixed(1)}%
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <div className="flex items-center">
+                                  <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                                  {typeof property.rating === 'number' ? property.rating.toFixed(1) : property.rating}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Monthly Revenue Trend */}
+                <div className="bg-white border rounded-lg p-6">
+                  <h4 className="text-lg font-semibold mb-4">Revenue Insights</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-gray-600">Average Revenue per Property</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        ${userProperties.length > 0 ? (totalRevenue / userProperties.length).toLocaleString() : '0'}
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-gray-600">Average Revenue per Booking</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        ${totalBookings > 0 ? (totalRevenue / totalBookings).toLocaleString() : '0'}
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-gray-600">Profit Margin</p>
+                      <p className="text-xl font-bold text-gray-900">
+                        {totalRevenue > 0 ? (((totalRevenue - totalExpenses) / totalRevenue) * 100).toFixed(1) : '0'}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Platform Performance */}
+                <div className="bg-white border rounded-lg p-6">
+                  <h4 className="text-lg font-semibold mb-4">Platform Performance</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-red-600">Airbnb Revenue</p>
+                          <p className="text-lg font-bold text-red-900">
+                            ${calendarEvents.filter(e => e.resource?.source === 'airbnb').reduce((sum, e) => sum + (e.resource?.estimatedRevenue || 0), 0).toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-red-600 font-bold text-lg">A</div>
+                      </div>
+                    </div>
+                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-blue-600">VRBO Revenue</p>
+                          <p className="text-lg font-bold text-blue-900">
+                            ${calendarEvents.filter(e => e.resource?.source === 'vrbo').reduce((sum, e) => sum + (e.resource?.estimatedRevenue || 0), 0).toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-blue-600 font-bold text-lg">V</div>
+                      </div>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-green-600">Blu Luxury Rentals</p>
+                          <p className="text-lg font-bold text-green-900">
+                            ${calendarEvents.filter(e => e.resource?.source === 'personal').reduce((sum, e) => sum + (e.resource?.estimatedRevenue || 0), 0).toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-green-600 font-bold text-lg">B</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
